@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -186,9 +187,15 @@ namespace LicenseManager.Editor
             return false;
         }
 
+        private static readonly IEnumerable<string> _unityThirdPartyPackages = new string[]
+        {
+            "com.autodesk.fbx",
+            "com.havok.physics",
+        };
+
         private static bool IsUnityPackage(string packageName)
         {
-            return packageName.StartsWith("com.unity.");
+            return packageName.StartsWith("com.unity.") || _unityThirdPartyPackages.Contains(packageName);
         }
 
         [Serializable]
