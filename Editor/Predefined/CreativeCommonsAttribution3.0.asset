@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c155653d87a214d9d3a807a0e17bff, type: 3}
   m_Name: CreativeCommonsAttribution3.0
   m_EditorClassIdentifier: 
-  _licenseName: Creative Commons Attribution 3.0
+  _licenseName: CC BY 3.0
   _licenseUrl: https://creativecommons.org/licenses/by/3.0/
   _requiredStrings:
   - Attribution 3.0

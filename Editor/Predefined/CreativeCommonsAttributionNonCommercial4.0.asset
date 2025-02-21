@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c155653d87a214d9d3a807a0e17bff, type: 3}
   m_Name: CreativeCommonsAttributionNonCommercial4.0
   m_EditorClassIdentifier: 
-  _licenseName: Attribution NonCommercial 4.0
+  _licenseName: CC BY-NC 4.0
   _licenseUrl: https://creativecommons.org/licenses/by-nc/4.0
   _requiredStrings:
   - Attribution NonCommercial 4.0
