@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c155653d87a214d9d3a807a0e17bff, type: 3}
+  m_Name: MozillaPublicLicenseVersion2.0
+  m_EditorClassIdentifier: 
+  _licenseName: Mozilla Public License Version 2.0
+  _licenseUrl: https://www.mozilla.org/en-US/MPL/2.0/
+  _requiredStrings:
+  - Mozilla Public License Version 2.0
+  - under intellectual property rights (other than patent or trademark) Licensable
+    by such Contributor to use, reproduce, make available, modify, display, perform,
+    distribute, and otherwise exploit its Contributions, either on an unmodified
+    basis, with Modifications, or as part of a Larger Work
+  - under Patent Claims of such Contributor to make, use, sell, offer for sale, have
+    made, import, and otherwise transfer either its Contributions or its Contributor
+    Version
+  - "All distribution of Covered Software in Source Code Form, including any Modifications
+    that You create or to which You contribute, must be under the terms of this License.
+    You must inform recipients that the Source Code Form of the Covered Software
+    is governed by the terms of this License, and how they can obtain a copy of this
+    License. You may not attempt to alter or restrict the recipients\u2019 rights
+    in the Source Code Form."
+  - You may not remove or alter the substance of any license notices (including copyright
+    notices, patent notices, disclaimers of warranty, or limitations of liability)
+    contained within the Source Code Form of the Covered Software, except that You
+    may alter any license notices to the extent required to remedy known factual
+    inaccuracies.

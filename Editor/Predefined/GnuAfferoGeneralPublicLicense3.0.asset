@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69c155653d87a214d9d3a807a0e17bff, type: 3}
-  m_Name: GnuGeneralPublicLicense3.0
+  m_Name: GnuAfferoGeneralPublicLicense3.0
   m_EditorClassIdentifier: 
-  _licenseName: GNU General Public License 3.0
-  _licenseUrl: https://www.gnu.org/licenses/gpl-3.0.txt
+  _licenseName: GNU Affero General Public License 3.0
+  _licenseUrl: https://www.gnu.org/licenses/agpl-3.0.txt
   _requiredStrings:
-  - GNU GENERAL PUBLIC LICENSE
-  - Version 3, 29 June 2007
+  - GNU AFFERO GENERAL PUBLIC LICENSE
+  - Version 3, 19 November 2007
