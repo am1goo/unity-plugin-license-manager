@@ -4,7 +4,7 @@ This is might be very helpful if you need to reveal info about all third-party a
 
 #### Unity Plugin
 The latest version can be installed via [package manager](https://docs.unity3d.com/Manual/upm-ui-giturl.html) using following git URL: \
-`https://github.com/am1goo/unity-plugin-license-manager.git#0.0.2`
+`https://github.com/am1goo/unity-plugin-license-manager.git#0.0.3`
 
 ## Tested in
 - **Unity 2020.3.x**
