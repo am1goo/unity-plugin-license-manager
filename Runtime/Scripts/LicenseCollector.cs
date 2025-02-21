@@ -8,10 +8,14 @@ namespace LicenseManager
     [CreateAssetMenu(fileName = "LicenseCollector", menuName = "License Manager/Collector")]
     public class LicenseCollector : ScriptableObject
     {
+        [Header("Options")]
+        [SerializeField]
+        private bool _includeUnityPackages;
+        public bool includeUnityPackages => _includeUnityPackages;
         [SerializeField]
         private string[] _licenseLookupNames = _defaultLicenseLookupNames.ToArray();
         public IEnumerable<string> licenseLookupNames => _licenseLookupNames;
-
+        [Header("Results")]
         [SerializeField]
         private List<Entry> _entries;
         public IEnumerable<Entry> entries => _entries;

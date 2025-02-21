@@ -22,7 +22,7 @@ namespace LicenseManager.Editor
 
         private static readonly List<ILicenseParser> _licenseParsers = new List<ILicenseParser>();
 
-        public static LicenseReport GetReport(UnityEngine.Object asset)
+        public static LicenseReport GetReport(LicenseLookupOptions options, UnityEngine.Object asset)
         {
             _licenseParsers.Clear();
             var predefinedList = new List<PredefinedLicenseData>();
@@ -38,7 +38,7 @@ namespace LicenseManager.Editor
                         continue;
 
                     case IAssetParser.Result.Success:
-                        if (TryGetReport(asset, content, out var report))
+                        if (TryGetReport(asset, content, options, out var report))
                         {
                             return report;
                         }
@@ -62,9 +62,9 @@ namespace LicenseManager.Editor
             return null;
         }
 
-        private static bool TryGetReport(UnityEngine.Object asset, string content, out LicenseReport result)
+        private static bool TryGetReport(UnityEngine.Object asset, string content, LicenseLookupOptions options, out LicenseReport result)
         {
-            if (!TryCalculateName(asset, out var name))
+            if (!TryGetName(asset, options, out var name))
             {
                 result = default;
                 return false;
@@ -76,7 +76,7 @@ namespace LicenseManager.Editor
             return true;
         }
 
-        private static bool TryCalculateName(UnityEngine.Object asset, out string result)
+        private static bool TryGetName(UnityEngine.Object asset, LicenseLookupOptions options, out string result)
         {
             if (asset == null)
             {
@@ -100,8 +100,16 @@ namespace LicenseManager.Editor
                         return false;
                     }
 
-                    result = package.displayName;
-                    return true;
+                    if (options.includeUnityPackages || !IsUnityPackage(package.name))
+                    {
+                        result = package.displayName;
+                        return true;
+                    }
+                    else
+                    {
+                        result = default;
+                        return false;
+                    }
                 }
                 else
                 {
@@ -118,8 +126,16 @@ namespace LicenseManager.Editor
                     var package = JsonUtility.FromJson<PackageInfo>(packageJson);
                     if (package != null)
                     {
-                        result = package.displayName;
-                        return true;
+                        if (options.includeUnityPackages || !IsUnityPackage(package.name))
+                        {
+                            result = package.displayName;
+                            return true;
+                        }
+                        else
+                        {
+                            result = default;
+                            return false;
+                        }
                     }
                     else
                     {
@@ -168,6 +184,11 @@ namespace LicenseManager.Editor
 
             result = default;
             return false;
+        }
+
+        private static bool IsUnityPackage(string packageName)
+        {
+            return packageName.StartsWith("com.unity.");
         }
 
         [Serializable]

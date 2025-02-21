@@ -7,14 +7,14 @@ namespace LicenseManager.Editor
 {
     public static class LicenseEditorUtility
     {
-
-        public delegate bool OnLookupPredicate<T>(T asset, LookupOptions options) where T : UnityEngine.Object;
+        public delegate bool OnLookupPredicate<T>(T asset, LicenseLookupOptions options) where T : UnityEngine.Object;
 
         public static void Refresh(LicenseCollector collector)
         {
             var assets = new List<UnityEngine.Object>();
-            var options = new LookupOptions
+            var options = new LicenseLookupOptions
             {
+                includeUnityPackages = collector.includeUnityPackages,
                 lookupNames = collector.licenseLookupNames,
             };
             FindAllLicenses(options, assets);
@@ -28,7 +28,7 @@ namespace LicenseManager.Editor
             {
                 if (entry.asset != null && assets.Contains(entry.asset))
                 {
-                    var report = LicenseReporter.GetReport(entry.asset);
+                    var report = LicenseReporter.GetReport(options, entry.asset);
                     if (report != null)
                     {
                         entry.SetReport(report);
@@ -37,7 +37,6 @@ namespace LicenseManager.Editor
                     }
                     else
                     {
-                        Debug.LogError($"Refresh: unable to create report for asset {entry.asset}");
                         toDelete.Add(entry);
                     }
                 }
@@ -53,12 +52,9 @@ namespace LicenseManager.Editor
                 if (existed.Contains(asset))
                     continue;
 
-                var report = LicenseReporter.GetReport(asset);
+                var report = LicenseReporter.GetReport(options, asset);
                 if (report == null)
-                {
-                    Debug.LogError($"Refresh: unable to create report for asset {asset}");
                     continue;
-                }
 
                 var entry = new LicenseCollector.Entry(asset, isIncluded: true, report);
                 changed |= collector.Add(entry);
@@ -75,7 +71,7 @@ namespace LicenseManager.Editor
             }
         }
 
-        private static void FindAllLicenses(LookupOptions options, List<UnityEngine.Object> result)
+        private static void FindAllLicenses(LicenseLookupOptions options, List<UnityEngine.Object> result)
         {
             var textAssets = new List<TextAsset>();
             FindAllAssets(textAssets, options, OnTextAssetLicenseLookup);
@@ -99,7 +95,7 @@ namespace LicenseManager.Editor
             FindAllAssets(result, default, null);
         }
 
-        private static void FindAllAssets<T>(List<T> result, LookupOptions options, OnLookupPredicate<T> predicate) where T : UnityEngine.Object
+        private static void FindAllAssets<T>(List<T> result, LicenseLookupOptions options, OnLookupPredicate<T> predicate) where T : UnityEngine.Object
         {
             var guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
             foreach (var guid in guids)
@@ -114,12 +110,12 @@ namespace LicenseManager.Editor
             }
         }
 
-        private static bool OnTextAssetLicenseLookup(TextAsset textAsset, LookupOptions options)
+        private static bool OnTextAssetLicenseLookup(TextAsset textAsset, LicenseLookupOptions options)
         {
             return OnLicenseLookup(textAsset, options);
         }
 
-        private static bool OnDefaultAssetLicenseLookup(DefaultAsset textAsset, LookupOptions options)
+        private static bool OnDefaultAssetLicenseLookup(DefaultAsset textAsset, LicenseLookupOptions options)
         {
             var isLicense = OnLicenseLookup(textAsset, options);
             if (!isLicense)
@@ -129,7 +125,7 @@ namespace LicenseManager.Editor
             return System.IO.File.Exists(assetPath);
         }
 
-        private static bool OnLicenseLookup(UnityEngine.Object asset, LookupOptions options)
+        private static bool OnLicenseLookup(UnityEngine.Object asset, LicenseLookupOptions options)
         {
             if (asset == null)
                 return false;
@@ -142,11 +138,6 @@ namespace LicenseManager.Editor
                 }
             }
             return false;
-        }
-
-        public struct LookupOptions
-        {
-            public IEnumerable<string> lookupNames;
         }
     }
 }
