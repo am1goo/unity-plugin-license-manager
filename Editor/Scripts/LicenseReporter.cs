@@ -12,15 +12,24 @@ namespace LicenseManager.Editor
         private const string _packagesPrefix = "Packages/";
         private const string _assetsPrefix = "Assets/";
 
-        private static readonly List<IAssetParser> _parsers = new List<IAssetParser>
+        public const string unknownLicense = "Unknown License";
+
+        private static readonly List<IAssetParser> _assetParsers = new List<IAssetParser>
         {
             new TextAssetParser(),
             new DefaultAssetParser(),
         };
 
+        private static readonly List<ILicenseParser> _licenseParsers = new List<ILicenseParser>();
+
         public static LicenseReport GetReport(UnityEngine.Object asset)
         {
-            foreach (var parser in _parsers)
+            _licenseParsers.Clear();
+            var predefinedList = new List<PredefinedLicenseData>();
+            LicenseEditorUtility.FindAllAssets(predefinedList);
+            _licenseParsers.Add(new PredefinedLicenseParser(predefinedList));
+
+            foreach (var parser in _assetParsers)
             {
                 var result = parser.TryGetContent(asset, out var content);
                 switch (result)
@@ -61,7 +70,7 @@ namespace LicenseManager.Editor
                 return false;
             }
 
-            var license = GetLicense(content, "Unknown License");
+            var license = GetLicense(content, unknownLicense);
 
             result = new LicenseReport(name, content, license);
             return true;
@@ -148,6 +157,15 @@ namespace LicenseManager.Editor
 
         private static bool TryGetLicense(string content, out string result)
         {
+            foreach (var parser in _licenseParsers)
+            {
+                if (parser.TryGetLicense(content, out var license))
+                {
+                    result = license;
+                    return true;
+                }
+            }
+
             result = default;
             return false;
         }

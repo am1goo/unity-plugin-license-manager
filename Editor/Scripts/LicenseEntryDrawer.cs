@@ -43,10 +43,16 @@ namespace LicenseManager.Editor
             EditorGUI.PropertyField(r, reportProp);
             r.y += r.height;
 
-            var nameProp = reportProp.FindPropertyRelative("_name");
             var labelRect = new Rect(position);
             labelRect.height = EditorGUIUtility.singleLineHeight;
+
+            var nameProp = reportProp.FindPropertyRelative("_name");
+            var licenseProp = reportProp.FindPropertyRelative("_license");
+
+            var prevColor = GUI.contentColor;
+            GUI.contentColor = licenseProp.stringValue == LicenseReporter.unknownLicense ? Color.red : GUI.color;
             GUI.Label(labelRect, nameProp.stringValue);
+            GUI.contentColor = prevColor;
 
             EditorGUI.indentLevel--;
 

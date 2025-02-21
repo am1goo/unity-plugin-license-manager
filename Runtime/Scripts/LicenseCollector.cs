@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace LicenseManager
 {
-    [CreateAssetMenu(fileName = "LicenseCollector", menuName = "License Collector")]
+    [CreateAssetMenu(fileName = "LicenseCollector", menuName = "License Manager/Collector")]
     public class LicenseCollector : ScriptableObject
     {
         [SerializeField]

@@ -94,6 +94,11 @@ namespace LicenseManager.Editor
             }
         }
 
+        public static void FindAllAssets<T>(List<T> result) where T : UnityEngine.Object
+        {
+            FindAllAssets(result, default, null);
+        }
+
         private static void FindAllAssets<T>(List<T> result, LookupOptions options, OnLookupPredicate<T> predicate) where T : UnityEngine.Object
         {
             var guids = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
