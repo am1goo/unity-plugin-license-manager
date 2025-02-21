@@ -1,0 +1,24 @@
+{
+    "name": "com.am1goo.licensemanager",
+    "version": "0.0.1",
+    "displayName": "License manager",
+    "description": "License manager Plugin for Unity",
+    "dependencies": {
+      "com.unity.modules.jsonserialize": "1.0.0"
+    },
+    "unity": "2020.3",
+    "license": "MIT",
+    "licensesUrl": "https://github.com/am1goo/unity-plugin-license-manager/blob/main/LICENSE",
+    "documentationUrl": "https://github.com/am1goo/unity-plugin-license-manager/blob/main/README.md",
+    "keywords": [
+        "license",
+        "files",
+        "manager"
+    ],
+    "author": {
+        "name": "Pavel 'am1goo' Shestakov",
+        "email": "0xShestakov@gmail.com",
+        "url": "https://github.com/am1goo"
+    },
+    "type": "library"
+}
