@@ -8,13 +8,13 @@ namespace LicenseManager.Editor
     {
         public override void OnInspectorGUI()
         {
-            base.OnInspectorGUI();
-
             var collector = serializedObject.targetObject as LicenseCollector;
             if (GUILayout.Button("Refresh"))
             {
                 LicenseEditorUtility.Refresh(collector);
             }
+
+            base.OnInspectorGUI();
         }
     }
 }

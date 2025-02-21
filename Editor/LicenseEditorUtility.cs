@@ -7,10 +7,6 @@ namespace LicenseManager.Editor
 {
     public static class LicenseEditorUtility
     {
-        private const string _packageJsonFilename = "package.json";
-
-        private const string _packagesPrefix = "Packages/";
-        private const string _assetsPrefix = "Assets/";
 
         public delegate bool OnLookupPredicate<T>(T asset, LookupOptions options) where T : UnityEngine.Object;
 
@@ -32,8 +28,18 @@ namespace LicenseManager.Editor
             {
                 if (entry.asset != null && assets.Contains(entry.asset))
                 {
-                    Update(entry, ref changed);
-                    existed.Add(entry.asset);
+                    var report = LicenseReporter.GetReport(entry.asset);
+                    if (report != null)
+                    {
+                        entry.SetReport(report);
+                        existed.Add(entry.asset);
+                        changed |= true;
+                    }
+                    else
+                    {
+                        Debug.LogError($"Refresh: unable to create report for asset {entry.asset}");
+                        toDelete.Add(entry);
+                    }
                 }
                 else
                 {
@@ -47,9 +53,14 @@ namespace LicenseManager.Editor
                 if (existed.Contains(asset))
                     continue;
 
-                var entry = new LicenseCollector.Entry(asset, isIncluded: true);
-                Update(entry, ref changed);
+                var report = LicenseReporter.GetReport(asset);
+                if (report == null)
+                {
+                    Debug.LogError($"Refresh: unable to create report for asset {asset}");
+                    continue;
+                }
 
+                var entry = new LicenseCollector.Entry(asset, isIncluded: true, report);
                 changed |= collector.Add(entry);
             }
 
@@ -69,7 +80,7 @@ namespace LicenseManager.Editor
             var textAssets = new List<TextAsset>();
             FindAllAssets(textAssets, options, OnTextAssetLicenseLookup);
 
-            var defaultAssets = new List<UnityEditor.DefaultAsset>();
+            var defaultAssets = new List<DefaultAsset>();
             FindAllAssets(defaultAssets, options, OnDefaultAssetLicenseLookup);
 
             foreach (var asset in textAssets)
@@ -128,112 +139,9 @@ namespace LicenseManager.Editor
             return false;
         }
 
-        private static void Update(LicenseCollector.Entry entry, ref bool changed)
-        {
-            if (entry == null)
-                return;
-
-            if (TryCalculateName(entry.asset, out var name))
-            {
-                entry.SetName(name);
-                changed |= true;
-            }
-        }
-
-        private static bool TryCalculateName(UnityEngine.Object asset, out string result)
-        {
-            if (asset == null)
-            {
-                result = default;
-                return false;
-            }
-
-            var assetPath = AssetDatabase.GetAssetPath(asset);
-            var assetFile = new System.IO.FileInfo(assetPath);
-            var assetDirectory = assetFile.Directory;
-            if (assetPath.StartsWith(_packagesPrefix))
-            {
-                var packageFile = new System.IO.FileInfo(System.IO.Path.Combine(assetDirectory.FullName, _packageJsonFilename));
-                if (packageFile.Exists)
-                {
-                    var package = UnityEditor.PackageManager.PackageInfo.FindForAssetPath(assetPath);
-                    if (package == null)
-                    {
-                        Debug.LogError($"required '{_packageJsonFilename}' file is not found near '{assetPath}'");
-                        result = default;
-                        return false;
-                    }
-
-                    result = package.displayName;
-                    return true;
-                }
-                else
-                {
-                    result = assetDirectory.Name;
-                    return true;
-                }
-            }
-            else if (assetPath.StartsWith(_assetsPrefix))
-            {
-                var packageFile = new System.IO.FileInfo(System.IO.Path.Combine(assetDirectory.FullName, _packageJsonFilename));
-                if (packageFile.Exists)
-                {
-                    var packageJson = System.IO.File.ReadAllText(packageFile.FullName);
-                    var package = JsonUtility.FromJson<PackageInfo>(packageJson);
-                    if (package != null)
-                    {
-                        result = package.displayName;
-                        return true;
-                    }
-                    else
-                    {
-                        var substringLength = assetPath.Length - _assetsPrefix.Length - assetFile.Name.Length - 1;
-                        result = assetPath.Substring(_assetsPrefix.Length, substringLength);
-                        return true;
-                    }
-                }
-                else
-                {
-                    var substringLength = assetPath.Length - _assetsPrefix.Length - assetFile.Name.Length - 1;
-                    result = assetPath.Substring(_assetsPrefix.Length, substringLength);
-                    return true;
-                }
-            }
-            else
-            {
-                Debug.LogError($"unsupported asset path '{assetPath}' of {asset}");
-                result = default;
-                return false;
-            }
-        }
-
         public struct LookupOptions
         {
             public IEnumerable<string> lookupNames;
-        }
-
-        [Serializable]
-        public class PackageInfo
-        {
-            public string displayName;
-            public string name;
-            public string description;
-            public string type;
-            public string category;
-            public string version;
-            public string licensesUrl;
-            public string changelogUrl;
-            public string documentationUrl;
-            public AuthorInfo author;
-            public string[] keywords;
-
-            [Serializable]
-            public class AuthorInfo
-            {
-                public string name;
-                public string email;
-                public string url;
-            }
         }
     }
 }

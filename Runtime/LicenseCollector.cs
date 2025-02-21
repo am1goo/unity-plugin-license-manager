@@ -48,28 +48,47 @@ namespace LicenseManager
             return _entries.Remove(entry);
         }
 
+        public List<LicenseReport> GetReport()
+        {
+            var list = new List<LicenseReport>();
+            GetReport(list);
+            return list;
+        }
+
+        public void GetReport(List<LicenseReport> result)
+        {
+            foreach (var entry in _entries)
+            {
+                if (entry.isIncluded == false)
+                    continue;
+
+                result.Add(entry.report);
+            }
+        }
+
         [Serializable]
         public class Entry
         {
-            [SerializeField]
-            private string _name;
-            public string name => _name;
             [SerializeField]
             private UnityEngine.Object _asset;
             public UnityEngine.Object asset => _asset;
             [SerializeField]
             private bool _isIncluded;
             public bool isIncluded => _isIncluded;
+            [SerializeField]
+            private LicenseReport _report;
+            public LicenseReport report => _report;
 
-            public Entry(UnityEngine.Object asset, bool isIncluded)
+            public Entry(UnityEngine.Object asset, bool isIncluded, LicenseReport report)
             {
                 this._asset = asset;
                 this._isIncluded = isIncluded;
+                this._report = report;
             }
 
-            public void SetName(string name)
+            public void SetReport(LicenseReport report)
             {
-                _name = name;
+                this._report = report;
             }
         }
     }
