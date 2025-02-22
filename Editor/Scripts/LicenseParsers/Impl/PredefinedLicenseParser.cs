@@ -20,7 +20,7 @@ namespace LicenseManager.Editor
             this._list = list;
         }
 
-        public bool TryGetLicense(string content, out string result)
+        public bool TryGetLicense(string content, out string result, out LicenseRemarks remarks)
         {
             foreach (var data in _list)
             {
@@ -31,10 +31,12 @@ namespace LicenseManager.Editor
                     continue;
 
                 result = data.licenseName;
+                remarks = data.remarks;
                 return true;
             }
 
             result = default;
+            remarks = default;
             return false;
         }
 

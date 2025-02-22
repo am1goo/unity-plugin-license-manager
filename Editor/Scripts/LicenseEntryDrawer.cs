@@ -33,30 +33,47 @@ namespace LicenseManager.Editor
 
             var assetProp = property.FindPropertyRelative("_asset");
             EditorGUI.PropertyField(r, assetProp);
-            r.y += r.height;
+            r.y += EditorGUI.GetPropertyHeight(assetProp);
 
             var isIncludedProp = property.FindPropertyRelative("_isIncluded");
             EditorGUI.PropertyField(r, isIncludedProp);
-            r.y += r.height;
+            r.y += EditorGUI.GetPropertyHeight(isIncludedProp);
 
             var reportProp = property.FindPropertyRelative("_report");
             EditorGUI.PropertyField(r, reportProp);
-            r.y += r.height;
+            r.y += EditorGUI.GetPropertyHeight(reportProp);
 
             var labelRect = new Rect(position);
             labelRect.height = EditorGUIUtility.singleLineHeight;
 
             var nameProp = reportProp.FindPropertyRelative("_name");
-            var licenseProp = reportProp.FindPropertyRelative("_license");
 
             var prevColor = GUI.contentColor;
-            GUI.contentColor = licenseProp.stringValue == LicenseReporter.unknownLicense ? Color.red : GUI.color;
+            GUI.contentColor = GetReportColor(reportProp, prevColor);
             GUI.Label(labelRect, nameProp.stringValue);
             GUI.contentColor = prevColor;
 
             EditorGUI.indentLevel--;
 
             property.serializedObject.ApplyModifiedProperties();
+        }
+
+        private static Color GetReportColor(SerializedProperty property, Color defaultValue)
+        {
+            var licenseProp = property.FindPropertyRelative("_license");
+            var remarksProp = property.FindPropertyRelative("_remarks");
+            if (LicenseSharedDrawer.TryGetRemarksColor(remarksProp, out var color))
+            {
+                return color;
+            }
+            else if (LicenseSharedDrawer.TryGetLicenseColor(licenseProp, out color))
+            {
+                return color;
+            }
+            else
+            {
+                return defaultValue;
+            }
         }
     }
 }

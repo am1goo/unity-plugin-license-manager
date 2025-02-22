@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _licenseName: GNU Affero General Public License 3.0
   _licenseUrl: https://www.gnu.org/licenses/agpl-3.0.txt
+  _remarks: 2
   _requiredStrings:
   - GNU AFFERO GENERAL PUBLIC LICENSE
   - Version 3, 19 November 2007

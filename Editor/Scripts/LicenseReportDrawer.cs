@@ -19,6 +19,9 @@ namespace LicenseManager.Editor
             var contentProp = property.FindPropertyRelative("_content");
             height += EditorGUIUtility.singleLineHeight;
 
+            var remarksProp = property.FindPropertyRelative("_remarks");
+            height += LicenseEditorGUI.GetPropertyHeight(remarksProp);
+
             return height;
         }
 
@@ -28,11 +31,21 @@ namespace LicenseManager.Editor
 
             var nameProp = property.FindPropertyRelative("_name");
             EditorGUI.PropertyField(r, nameProp);
-            r.y += r.height;
+            r.y += EditorGUI.GetPropertyHeight(nameProp);
+
+            var prevColor = GUI.contentColor;
 
             var licenseProp = property.FindPropertyRelative("_license");
+            GUI.contentColor = LicenseSharedDrawer.GetLicenseColor(licenseProp, prevColor);
             EditorGUI.PropertyField(r, licenseProp);
-            r.y += r.height;
+            r.y += EditorGUI.GetPropertyHeight(licenseProp);
+            GUI.contentColor = prevColor;
+
+            var remarksProp = property.FindPropertyRelative("_remarks");
+            GUI.contentColor = LicenseSharedDrawer.GetRemarksColor(remarksProp, prevColor);
+            LicenseEditorGUI.PropertyField(r, remarksProp);
+            r.y += LicenseEditorGUI.GetPropertyHeight(remarksProp);
+            GUI.contentColor = prevColor;
 
             var contentProp = property.FindPropertyRelative("_content");
             var contentClicked = false;

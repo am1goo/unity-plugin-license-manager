@@ -2,6 +2,6 @@
 {
     public interface ILicenseParser
     {
-        public bool TryGetLicense(string content, out string result);
+        public bool TryGetLicense(string content, out string result, out LicenseRemarks remarks);
     }
 }

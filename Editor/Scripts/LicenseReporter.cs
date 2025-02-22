@@ -71,10 +71,16 @@ namespace LicenseManager.Editor
                 return false;
             }
 
-            var license = GetLicense(content, unknownLicense);
-
-            result = new LicenseReport(name, content, license);
-            return true;
+            if (TryGetLicense(content, out var license, out var licenseRemarks))
+            {
+                result = new LicenseReport(name, content, license, licenseRemarks);
+                return true;
+            }
+            else
+            {
+                result = new LicenseReport(name, content, unknownLicense, (LicenseRemarks)0);
+                return true;
+            }
         }
 
         private static bool TryGetName(UnityEngine.Object asset, LicenseLookupOptions options, out string result)
@@ -160,30 +166,20 @@ namespace LicenseManager.Editor
             }
         }
 
-        private static string GetLicense(string content, string defaultValue)
-        {
-            if (TryGetLicense(content, out var result))
-            {
-                return result;
-            }
-            else
-            {
-                return defaultValue;
-            }
-        }
-
-        private static bool TryGetLicense(string content, out string result)
+        private static bool TryGetLicense(string content, out string result, out LicenseRemarks remarks)
         {
             foreach (var parser in _licenseParsers)
             {
-                if (parser.TryGetLicense(content, out var license))
+                if (parser.TryGetLicense(content, out var license, out var licenseRemarks))
                 {
                     result = license;
+                    remarks = licenseRemarks;
                     return true;
                 }
             }
 
             result = default;
+            remarks = default;
             return false;
         }
 

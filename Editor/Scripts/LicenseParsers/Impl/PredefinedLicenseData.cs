@@ -11,6 +11,9 @@ namespace LicenseManager.Editor
         [SerializeField]
         private string _licenseUrl;
         public string licenseUrl => _licenseUrl;
+        [SerializeField]
+        private LicenseRemarks _remarks;
+        public LicenseRemarks remarks => _remarks;
         [SerializeField, TextArea]
         private string[] _requiredStrings;
         public string[] requiredStrings => _requiredStrings;
