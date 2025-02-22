@@ -1,6 +1,6 @@
 {
     "name": "com.am1goo.licensemanager",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "displayName": "License manager",
     "description": "License manager Plugin for Unity",
     "dependencies": {
