@@ -1,6 +1,6 @@
 # License Manager for Unity
-A simple tool to find all LICENSE files in Unity project and get a report on all these files.
-This is might be very helpful if you need to reveal info about all third-party assets used in your project.
+A simple tool to find all LICENSE files in Unity project and get a report on all these files. \
+This is might be very helpful if you need to reveal info about all third-party assets used in your project. \
 Works with Assets and Packages folders.
 
 #### How to use?
@@ -38,8 +38,16 @@ void Start()
 The latest version can be installed via [package manager](https://docs.unity3d.com/Manual/upm-ui-giturl.html) using following git URL: \
 `https://github.com/am1goo/unity-plugin-license-manager.git#0.0.5`
 
-#### What next?
+## Screenshots
+1. `LicenseCollector` settings
+<img src="Readme/license_collector_settings.png" alt="license_collector_settings" width=auto height=auto/>
+
+2. Visual report of all collected licenses in project
+<img src="Readme/license_report_example.png" alt="license_report_example" width=auto height=auto/>
+
+## What next?
 - [ ] Build post-process callback (to get correct report up-to-date)
+- [ ] More supported licenses (except the most popular ones)
 
 ## Tested in
 - **Unity 2020.3.x**
