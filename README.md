@@ -36,7 +36,7 @@ void Start()
 
 #### Unity Plugin
 The latest version can be installed via [package manager](https://docs.unity3d.com/Manual/upm-ui-giturl.html) using following git URL: \
-`https://github.com/am1goo/unity-plugin-license-manager.git#0.0.6`
+`https://github.com/am1goo/unity-plugin-license-manager.git#0.0.7`
 
 ## Screenshots
 1. `LicenseCollector` settings
@@ -46,7 +46,7 @@ The latest version can be installed via [package manager](https://docs.unity3d.c
 <img src="Readme/license_report_example.png" alt="license_report_example" width=auto height=auto/>
 
 ## What next?
-- [ ] Build post-process callback (to get correct report up-to-date)
+- [x] Build post-process callback (to get correct report up-to-date)
 - [ ] More supported licenses (except the most popular ones)
 
 ## Tested in
