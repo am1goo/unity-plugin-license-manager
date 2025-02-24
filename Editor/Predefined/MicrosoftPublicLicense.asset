@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c155653d87a214d9d3a807a0e17bff, type: 3}
+  m_Name: MicrosoftPublicLicense
+  m_EditorClassIdentifier: 
+  _licenseName: Microsoft Public License
+  _licenseUrl: https://opensource.org/license/ms-pl-html
+  _remarks: 0
+  _requiredStrings:
+  - "The terms \u201Creproduce,\u201D \u201Creproduction,\u201D \u201Cderivative
+    works,\u201D and \u201Cdistribution\u201D have the\r\nsame meaning here as under
+    U.S. copyright law."
+  - (A) Copyright Grant- Subject to the terms of this license, including the license
+    conditions and limitations in section 3, each contributor grants you a non-exclusive,
+    worldwide, royalty-free copyright license to reproduce its contribution, prepare
+    derivative works of its contribution, and distribute its contribution or any
+    derivative works that you create.
+  - (B) Patent Grant- Subject to the terms of this license, including the license
+    conditions and limitations in section 3, each contributor grants you a non-exclusive,
+    worldwide, royalty-free license under its licensed patents to make, have made,
+    use, sell, offer for sale, import, and/or otherwise dispose of its contribution
+    in the software or derivative works of the contribution in the software.
+  - "(A) No Trademark License- This license does not grant you rights to use any
+    contributors\u2019 name, logo, or trademarks."
+  - (B) If you bring a patent claim against any contributor over patents that you
+    claim are infringed by the software, your patent license from such contributor
+    to the software ends automatically.
+  - (C) If you distribute any portion of the software, you must retain all copyright,
+    patent, trademark, and attribution notices that are present in the software.
+  - (D) If you distribute any portion of the software in source code form, you may
+    do so only under this license by including a complete copy of this license with
+    your distribution. If you distribute any portion of the software in compiled
+    or object code form, you may only do so under a license that complies with this
+    license.
+  - "(E) The software is licensed \u201Cas-is.\u201D You bear the risk of using it.
+    The contributors give no express warranties, guarantees or conditions. You may
+    have additional consumer rights under your local laws which this license cannot
+    change. To the extent permitted under your local laws, the contributors exclude
+    the implied warranties of merchantability, fitness for a particular purpose and
+    non-infringement."
