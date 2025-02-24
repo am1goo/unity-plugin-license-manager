@@ -1,6 +1,7 @@
 # License Manager for Unity
-A simple tool to find all LICENSE files in Unity project and get a report on all these files (include Assets and Packages folders).
+A simple tool to find all LICENSE files in Unity project and get a report on all these files.
 This is might be very helpful if you need to reveal info about all third-party assets used in your project.
+Works with Assets and Packages folders.
 
 #### How to use?
 1. Create `LicenseCollector` asset via `Create -> License Manager -> Collector` context menu somethere in project
@@ -27,7 +28,7 @@ void Start()
         }
         if (remarks.HasFlag(LicenseManager.LicenseRemarks.Viral))
         {
-            Debug.LogError($"{name} asset is viral {license} and probably cannot be placed in this project");
+            Debug.LogError($"{name} asset has viral {license} and probably cannot be placed in this project");
         }
     }
 }
@@ -38,7 +39,7 @@ The latest version can be installed via [package manager](https://docs.unity3d.c
 `https://github.com/am1goo/unity-plugin-license-manager.git#0.0.5`
 
 #### What next?
-[] Build post-process callback (to get correct report up-to-date)
+- [ ] Build post-process callback (to get correct report up-to-date)
 
 ## Tested in
 - **Unity 2020.3.x**
