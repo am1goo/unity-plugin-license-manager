@@ -68,6 +68,8 @@ namespace LicenseManager.Editor
             if (changed)
             {
                 EditorUtility.SetDirty(collector);
+                AssetDatabase.SaveAssetIfDirty(collector);
+                AssetDatabase.Refresh();
             }
         }
 

@@ -10,8 +10,11 @@ namespace LicenseManager
     {
         [Header("Options")]
         [SerializeField]
-        private bool _includeUnityPackages;
+        private bool _includeUnityPackages = false;
         public bool includeUnityPackages => _includeUnityPackages;
+        [SerializeField]
+        private bool _refreshOnBuild = true;
+        public bool refreshOnBuild => _refreshOnBuild;
         [SerializeField]
         private string[] _licenseLookupNames = _defaultLicenseLookupNames.ToArray();
         public IEnumerable<string> licenseLookupNames => _licenseLookupNames;
