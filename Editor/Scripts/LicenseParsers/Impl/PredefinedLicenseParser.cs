@@ -27,12 +27,19 @@ namespace LicenseManager.Editor
                 if (data == null)
                     continue;
 
-                if (!IsRequiredStrings(content, data.requiredStrings))
-                    continue;
+                if (IsRequiredStrings(content, data.requiredStrings))
+                {
+                    result = data.licenseName;
+                    remarks = data.remarks;
+                    return true;
+                }
 
-                result = data.licenseName;
-                remarks = data.remarks;
-                return true;
+                if (content.Contains(data.licenseUrl))
+                {
+                    result = data.licenseName;
+                    remarks = data.remarks;
+                    return true;
+                }
             }
 
             result = default;

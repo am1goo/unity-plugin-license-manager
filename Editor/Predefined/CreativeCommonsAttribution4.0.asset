@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _licenseName: CC BY 4.0
   _licenseUrl: http://creativecommons.org/licenses/by/4.0/
+  _remarks: 0
   _requiredStrings:
-  - Creative Commons Attribution
+  - Attribution 4.0
