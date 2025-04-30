@@ -30,6 +30,11 @@ namespace LicenseManager
             "ApacheLicense2.0",
         };
 
+        private void Awake()
+        {
+            _entries = new List<Entry>();
+        }
+
         private void OnValidate()
         {
             if (_licenseLookupNames == null || _licenseLookupNames.Length == 0)
