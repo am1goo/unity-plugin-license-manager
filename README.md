@@ -37,7 +37,7 @@ void Start()
 #### Unity Plugin
 The latest version can be installed via [package manager](https://docs.unity3d.com/Manual/upm-ui-giturl.html) using following git URL:
 ```
-https://github.com/am1goo/unity-plugin-license-manager.git#0.0.8
+https://github.com/am1goo/unity-plugin-license-manager.git#0.0.9
 ```
 
 ## Screenshots
